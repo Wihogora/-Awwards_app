@@ -35,3 +35,9 @@ class ProjectsForm(forms.ModelForm):
         model = Projects
 
         fields = ['title', 'image1', 'image2', 'image3', 'decription', 'link']
+
+class RatesForm(forms.ModelForm):
+
+    class Meta:
+        model = Rates
+        exclude = ['overall_score','profile','projects']
