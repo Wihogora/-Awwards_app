@@ -35,7 +35,7 @@ def search_results(request):
         searched_images = Image.search_image(search_term)
         message = f"{search_term}"
 
-        return render(request, 'search_image.html',{"message":message,"images": searched_images})
+        return render(request, 'search_projects.html',{"message":message,"images": searched_images})
 
     else:
         message = "You haven't searched for any term"
@@ -72,3 +72,31 @@ def upload_profile(request):
 
 
     return render(request,'upload_profile.html',{"title":title,"current_user":current_user,"form":form})
+
+@login_required(login_url='/accounts/login/')
+def view_project(request, project_id):
+    project = Projects.objects.get(id=project_id)
+
+    return render(request, 'pages/view_project.html', {"project": project})
+
+@login_required(login_url='/accounts/login/')
+def upload_projects(request):
+    '''
+    View function that displays a forms that allows users to upload images
+    '''
+    current_user = request.user
+
+    if request.method == 'POST':
+
+        form = ImageForm(request.POST ,request.FILES)
+
+        if form.is_valid():
+            image = form.save(commit = False)
+            image.user_key = current_user
+           
+            image.save() 
+
+           
+    else:
+        form = ImageForm() 
+    return render(request, 'profile/upload_projects.html',{"form" : form}) 
