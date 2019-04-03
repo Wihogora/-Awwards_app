@@ -4,35 +4,25 @@
 <div class="container top">
     <div class="row">
         <div class="col-md-7">
-            {% for image in image_posts %}
+            {% for image in images %}
             <div class="home-images">
-                <p class="home-text">
-                    <a href="{% url 'profile' %}">{{image.profile.username}}</a>
-                </p>
-                <img src="{{image.image.url}}" style="width: 200px; height: 200px;" alt="Image">
-                <ul class="list-inline home-text">
-                    <li class="list-inline-item">
-                        <i class="fa fa-heart-o fa-2x" ></i>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="{% url 'single_image' image.id %}"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i></a>
-                    </li>
-                </ul>
-                <ul class="list-inline home-list">
-                    <li class="list-inline-item">
-                        <a href="{% url 'profile' %}">{{image.profile.username}}</a>
-                    </li>
-                    <li class="list-inline-item">
-                    {% autoescape on %}
-                        <p>{{image.image_caption|safe}} </p>
-                    {% endautoescape %}
-                    </li>
-                </ul>
                 
+                <p class="text-center">{{image.title}}</p>
+                <img src="{{image.image.url}}" style="width: 400px; height: 400px;" alt="Image">
+                
+                
+             
             </div>
-            {% empty %}
-            <h2>No images. Plz Follow some people to see their images</h2>
-            {% endfor %}
+            
+            {% autoescape on %}
+            
+            <strong>Description: </strong>{{image.description|safe}}
+            <br>
+            <strong>Link: </strong><a href="{{image.link|safe}}">{{image.link|safe}}</a>  
+            {% endautoescape %}
+                    
+            {% endfor %} 
+           
         </div>
     </div>
 </div>
