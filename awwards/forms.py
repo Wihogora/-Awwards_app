@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Profile, Projects, Rates
+from .models import Profile, Project, Rates
 
 
 class ProfileForm(forms.ModelForm):
@@ -29,7 +29,7 @@ class ProfileUploadForm(forms.ModelForm):
 		
 # 		exclude = ['user']
 
-class ProjectsForm(forms.ModelForm):
+class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Projects
@@ -40,4 +40,4 @@ class RatesForm(forms.ModelForm):
 
     class Meta:
         model = Rates
-        exclude = ['overall_score','profile','projects']
+        exclude = ['overall_score','profile','project']

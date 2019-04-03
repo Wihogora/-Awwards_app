@@ -26,7 +26,7 @@ class Profile(models.Model):
             return got_profiles
 
 
-class Projects(models.Model):
+class Project(models.Model):
         title = models.CharField(User, max_length=200)
         image1 = ImageField(manual_crop='1280x720')
         image2 = ImageField(null=True, manual_crop='1280x720')
@@ -42,8 +42,8 @@ class Projects(models.Model):
 
         @classmethod
         def get_post(cls, id):
-            projects = Projects.objects.filter(user=id)
-            return projects
+            project = Project.objects.filter(user=id)
+            return project
 
         class Meta:
             ordering = ['-id']
