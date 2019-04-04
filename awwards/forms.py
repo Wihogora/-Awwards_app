@@ -17,25 +17,24 @@ class ProfileUploadForm(forms.ModelForm):
 		
 		exclude = ['user']
 
-# class ImageForm(forms.ModelForm):
-# 	class Meta:
-# 		model = Image
+class ImageForm(forms.ModelForm):
+	class Meta:
+		model = Project
 		
-# 		exclude = ['user']
+		exclude = ['user']
 
-# class ImageUploadForm(forms.ModelForm):
-# 	class Meta:
-# 		model = Image
+class ImageUploadForm(forms.ModelForm):
+	class Meta:
+		model = Project
 		
-# 		exclude = ['user']
+		exclude = ['user']
 
 class ProjectForm(forms.ModelForm):
 
     class Meta:
-        model = Projects
+        model = Project
 
-        fields = ['title', 'image1', 'image2', 'image3', 'decription', 'link']
-
+        exclude = ['user']
 class RatesForm(forms.ModelForm):
 
     class Meta:
