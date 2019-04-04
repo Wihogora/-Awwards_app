@@ -9,11 +9,11 @@ from django.conf import settings
 @login_required(login_url='/accounts/login/')
 def index(request):
     title = 'Awwards'
-    image_posts = Image.objects.all()
+    images = Project.objects.all()
    
 
-    print(image_posts)
-    return render(request, 'index.html', {"title":title,"image_posts":image_posts})
+    print(images)
+    return render(request, 'index.html', {"title":title,"images":images})
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
@@ -30,16 +30,16 @@ def single_project(request,image_id):
 
 
 def search_results(request):
-    if 'image' in request.GET and request.GET["image"]:
-        search_term = request.GET.get("image")
-        searched_images = Image.search_image(search_term)
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        searched_images = Project.search_by_title(search_term)
         message = f"{search_term}"
 
         return render(request, 'search_projects.html',{"message":message,"images": searched_images})
 
     else:
         message = "You haven't searched for any term"
-        return render(request, 'search_image.html',{"message":message})
+        return render(request, 'search_projects.html',{"message":message})
 
 
 @login_required(login_url='/accounts/login/')
@@ -73,14 +73,14 @@ def upload_profile(request):
 
     return render(request,'upload_profile.html',{"title":title,"current_user":current_user,"form":form})
 
-@login_required(login_url='/accounts/login/')
-def view_project(request, project_id):
-    project = Projects.objects.get(id=project_id)
+# @login_required(login_url='/accounts/login/')
+# def view_project(request, project_id):
+#     project = Projects.objects.get(id=project_id)
 
-    return render(request, 'pages/view_project.html', {"project": project})
+#     return render(request, 'pages/view_project.html', {"project": project})
 
 @login_required(login_url='/accounts/login/')
-def upload_projects(request):
+def upload_project(request):
     '''
     View function that displays a forms that allows users to upload images
     '''
@@ -99,4 +99,4 @@ def upload_projects(request):
            
     else:
         form = ImageForm() 
-    return render(request, 'profile/upload_project.html',{"form" : form}) 
+    return render(request, 'project/upload_project.html',{"form" : form}) 
