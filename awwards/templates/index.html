@@ -1,28 +1,29 @@
 {% extends 'base.html' %} 
 
 {% block content %}
-<div class="container top">
+<h4>My Projects</h4>
+<div class="container " style="background-color:thistle;">
     <div class="row">
         <div class="col-md-7">
             {% for image in images %}
             <div class="home-images">
                 
-                <p class="text-center">{{image.title}}</p>
-                <img src="{{image.image.url}}" style="width: 400px; height: 400px;" alt="Image">
+                <p style="margin-top:50px;margin-left:400px;"><strong>Title: </strong>{{image.title}}</p>
+                <img src="{{image.image.url}}" style="width: 400px; height: 400px;margin-left: 400px;" alt="Image">
                 
-                
+               
              
             </div>
             
             {% autoescape on %}
+            <p style="margin-left: 400px;"><strong>Description: </strong>{{image.description|safe}}</p>
             
-            <strong>Description: </strong>{{image.description|safe}}
-            <br>
-            <strong>Link: </strong><a href="{{image.link|safe}}">{{image.link|safe}}</a>  
+            <p style="margin-left: 400px;"><strong>The Link: </strong><a href="{{image.link|safe}}">{{image.link|safe}}</a></p>
+           
             {% endautoescape %}
                     
-            {% endfor %} 
-           
+                
+            {% endfor %}
         </div>
     </div>
 </div>
