@@ -27,34 +27,47 @@ class Profile(models.Model):
 
 
 class Project(models.Model):
-        title = models.CharField(User, max_length=200)
-        image1 = ImageField(manual_crop='1280x720')
-        image2 = ImageField(null=True, manual_crop='1280x720')
-        image3 = ImageField(null=True, manual_crop='1280x720')
-        decription = models.TextField(max_length=200)
+        title = models.CharField( max_length=200,null = True)
+        image = models.ImageField(upload_to = "images/",null = True)
+        description = models.TextField(max_length=200)
         link = models.URLField(null=True, blank=True, default='')
         user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="images")
 
-        @classmethod
-        def get_all_projects(cls):
-            projects = Projects.objects.all()
-            return projects
-
-        @classmethod
-        def get_post(cls, id):
-            project = Project.objects.filter(user=id)
-            return project
-
-        class Meta:
-            ordering = ['-id']
-
+       
         def __str__(self):
             return self.title
 
-class Rating(models.Model):
+        def delete_image(self):
+            self.delete()
+
+        def save_image(self):
+            self.save()
+
+        def update_description(self,new_description):
+            self.image_description = new_description
+            self.save()
+        @classmethod
+        def all_images(cls):
+            image = cls.objects.all()
+            return image 
+
+
+        @classmethod
+        def get_image(cls, id):
+            image = cls.objects.get(id=id)
+            return image
+
+        @classmethod
+        def search_by_title(cls,search_term):
+            project = cls.objects.filter(title__icontains = search_term)
+            return project
+
+    # class Meta:
+    #     ordering = ['-pub_date']
+class Rates(models.Model):
         design = models.IntegerField(blank=True, default=0)
         usability = models.IntegerField(blank=True, default=0)
         content = models.IntegerField(blank=True, default=0)
         overall_score = models.IntegerField(blank=True, default=0)
         project = models.ForeignKey(Project, on_delete=models.CASCADE)
-        profile = models.ForeignKey(profile, on_delete=models.CASCADE)
+        profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
