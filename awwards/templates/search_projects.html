@@ -1,25 +1,33 @@
-{%extends 'profile/base.html'%} 
+{% extends "base.html" %}
+
 {% block content %}
-<div class="container" style="margin-top: 200px">
+<div class="container" style="background-color:darkgrey;">
 
   <div class="row">
-    {% if images %}
+    {% if images%}
       <h2>Found {{ images|length }} of searched term {{message}}</h2>
     {% else %}
-      <h2> Found 0 profiles for the search term {{message}}</h2>
+      <h2> Found 0 images for the search term {{message}}</h2>
     {% endif %}
 
   </div>
 
-  <div class="row">
+  <div class="row"></div>
 
   {% if images %}
     {% for image in images %}
-      <div class="col-sm-6 col-md-12">
-          <h1>{{image.image_name}}</h1>
+      <div class="col-sm-6 col-md-3">
+          <strong><h2 style="color:rgb(119, 47, 47); text-align: center;">{{image.title}}</h2></strong>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <img style=" margin-top: 20px; margin-bottom: 20px; width:380px; height:280px; " src="{{image.image.url}}" alt="Image" width='200' length='200'>
+        {% autoescape on %}
+        <strong>Description: </strong>{{image.description|safe}}
+        <hr>
+        <strong>The Link: </strong><a href="{{image.link|safe}}">{{image.link|safe}}</a>         
+      {% endautoescape %}
       </div>
     {% endfor %}
   {% endif %}
-  </div>
+      </div>
 </div>
 {% endblock %}
