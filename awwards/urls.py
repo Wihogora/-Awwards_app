@@ -7,11 +7,7 @@ from django.conf.urls.static import static
 urlpatterns=[
     
     url('^$',views.index, name='index'),
-    # url(r'^$',views.profile,name = 'profile'),
-    
     url(r'^image/(\d+)', views.single_project, name='single_project'),
-    # url(r'^comment/(?P<id>\d+)', views.comment, name='comment'),
-   
     url(r'^profile/', views.profile, name='profile'),
     url(r'^single_project/(\d+)', views.single_project, name='single_project'),
     url(r'^upload_project/', views.upload_project, name='upload_project'),
